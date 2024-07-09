@@ -1,10 +1,10 @@
-package com.exam.repositorie;
+package com.exam.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.exam.model.SubCategory;
+import com.exam.models.SubCategory;
 
 public interface SubCategoryRepository extends JpaRepository<SubCategory , Integer> {
 

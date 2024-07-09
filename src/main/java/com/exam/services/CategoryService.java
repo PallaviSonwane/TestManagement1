@@ -1,8 +1,8 @@
-package com.exam.service;
+package com.exam.services;
 
 import java.util.Optional;
 
-import com.exam.model.Category;
+import com.exam.models.Category;
 
 import java.util.List;
 
