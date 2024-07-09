@@ -1,10 +1,10 @@
-package com.exam.services.imlclass;
+package com.exam.service.imlclass;
 
-import com.exam.exceptions.DataNotFoundException;
-import com.exam.exceptions.DuplicateCategoryEntry;
-import com.exam.models.Category;
-import com.exam.repositories.CategoryRepository;
-import com.exam.services.CategoryService;
+import com.exam.exception.DataNotFoundException;
+import com.exam.exception.DuplicateCategoryEntry;
+import com.exam.model.Category;
+import com.exam.repositorie.CategoryRepository;
+import com.exam.service.CategoryService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

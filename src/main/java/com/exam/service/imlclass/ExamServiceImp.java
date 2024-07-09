@@ -1,16 +1,16 @@
-package com.exam.services.imlclass;
+package com.exam.service.imlclass;
 
 
-import com.exam.exceptions.DataNotFoundException;
-import com.exam.exceptions.DuplicatedDataException;
-import com.exam.exceptions.SubcategoryNotFoundException;
-import com.exam.models.Exam;
-import com.exam.models.SubCategory;
-import com.exam.repositories.ExamRepository;
-import com.exam.repositories.SubCategoryRepository;
-import com.exam.services.CategoryService;
-import com.exam.services.ExamService;
-import com.exam.services.SubCategoryService;
+import com.exam.exception.DataNotFoundException;
+import com.exam.exception.DuplicatedDataException;
+import com.exam.exception.SubcategoryNotFoundException;
+import com.exam.model.Exam;
+import com.exam.model.SubCategory;
+import com.exam.repositorie.ExamRepository;
+import com.exam.repositorie.SubCategoryRepository;
+import com.exam.service.CategoryService;
+import com.exam.service.ExamService;
+import com.exam.service.SubCategoryService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;

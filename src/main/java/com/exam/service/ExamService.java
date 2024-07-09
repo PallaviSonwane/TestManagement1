@@ -1,4 +1,4 @@
-package com.exam.services;
+package com.exam.service;
 
 
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.util.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.exam.models.Exam;
+import com.exam.model.Exam;
 
 
 public interface ExamService {

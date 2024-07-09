@@ -1,4 +1,4 @@
-package com.exam.exceptions;
+package com.exam.exception;
 
 import java.util.List;
 

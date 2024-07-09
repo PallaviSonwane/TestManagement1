@@ -1,10 +1,10 @@
-package com.exam.controllers;
+package com.exam.controller;
 
 
-import com.exam.exceptions.DataNotFoundException;
-import com.exam.exceptions.DuplicateCategoryEntry;
-import com.exam.models.SubCategory;
-import com.exam.services.SubCategoryService;
+import com.exam.exception.DataNotFoundException;
+import com.exam.exception.DuplicateCategoryEntry;
+import com.exam.model.SubCategory;
+import com.exam.service.SubCategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

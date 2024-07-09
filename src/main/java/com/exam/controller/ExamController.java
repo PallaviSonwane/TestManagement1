@@ -1,9 +1,9 @@
-package com.exam.controllers;
+package com.exam.controller;
 
-import com.exam.exceptions.DataNotFoundException;
-import com.exam.exceptions.DuplicatedDataException;
-import com.exam.models.Exam;
-import com.exam.services.ExamService;
+import com.exam.exception.DataNotFoundException;
+import com.exam.exception.DuplicatedDataException;
+import com.exam.model.Exam;
+import com.exam.service.ExamService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

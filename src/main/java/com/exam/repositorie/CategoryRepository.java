@@ -1,9 +1,9 @@
-package com.exam.repositories;
+package com.exam.repositorie;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.exam.models.Category;
+import com.exam.model.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category , Integer> {

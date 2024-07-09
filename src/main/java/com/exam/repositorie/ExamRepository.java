@@ -1,9 +1,9 @@
-package com.exam.repositories;
+package com.exam.repositorie;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.exam.models.Exam;
+import com.exam.model.Exam;
 
 @Repository
 public interface ExamRepository extends JpaRepository<Exam , Integer> {
