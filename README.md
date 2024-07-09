@@ -44,7 +44,7 @@ To run this project locally, follow these steps:
 
 2. **Build and run the application:**
     ```bash
-   ./mvnw spring-boot:run
+   ./gradlew clean build
 
 3. **Access the API endpoints:**
 
