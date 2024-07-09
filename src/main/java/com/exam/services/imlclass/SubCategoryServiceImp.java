@@ -1,4 +1,4 @@
-package com.exam.service.imlclass;
+package com.exam.services.imlclass;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,13 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.exam.exception.CategoryNotFoundException;
-import com.exam.exception.DataNotFoundException;
-import com.exam.exception.DuplicateSubCategoryEntry;
-import com.exam.model.SubCategory;
-import com.exam.repository.CategoryRepository;
-import com.exam.repository.SubCategoryRepository;
-import com.exam.service.SubCategoryService;
+import com.exam.exceptions.CategoryNotFoundException;
+import com.exam.exceptions.DataNotFoundException;
+import com.exam.exceptions.DuplicateSubCategoryEntry;
+import com.exam.models.SubCategory;
+import com.exam.repositories.CategoryRepository;
+import com.exam.repositories.SubCategoryRepository;
+import com.exam.services.SubCategoryService;
 
 import lombok.extern.slf4j.Slf4j;
 

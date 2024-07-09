@@ -1,4 +1,4 @@
-package com.exam.exception;
+package com.exam.exceptions;
 
 import java.util.List;
 import java.util.stream.Collectors;

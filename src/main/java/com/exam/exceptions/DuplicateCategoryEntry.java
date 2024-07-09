@@ -1,4 +1,4 @@
-package com.exam.exception;
+package com.exam.exceptions;
 
 public class DuplicateCategoryEntry extends RuntimeException {
     public DuplicateCategoryEntry(String msg){

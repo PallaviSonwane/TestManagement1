@@ -1,7 +1,9 @@
-package com.exam.service;
+package com.exam.services;
 
-import com.exam.model.SubCategory;
 import java.util.Optional;
+
+import com.exam.models.SubCategory;
+
 import java.util.List;
 
 public interface SubCategoryService {
