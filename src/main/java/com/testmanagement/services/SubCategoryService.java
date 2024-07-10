@@ -1,8 +1,8 @@
-package com.exam.services;
+package com.testmanagement.services;
 
 import java.util.Optional;
 
-import com.exam.models.SubCategory;
+import com.testmanagement.models.SubCategory;
 
 import java.util.List;
 

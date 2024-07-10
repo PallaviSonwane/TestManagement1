@@ -1,4 +1,4 @@
-package com.exam.models;
+package com.testmanagement.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

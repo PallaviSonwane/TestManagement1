@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class SubCategoryControllerTests {
+class SubCategoryControllerTests {
 
     @Mock
     private SubCategoryService subCategoryService;
@@ -27,7 +27,7 @@ public class SubCategoryControllerTests {
     private SubCategoryController subCategoryController;
 
     @Test
-    public void testCreateSubCategory() {
+    void testCreateSubCategory() {
         
         SubCategory subCategory = new SubCategory();
         subCategory.setSubCategoryID(1);
@@ -43,7 +43,7 @@ public class SubCategoryControllerTests {
     }
 
     @Test
-    public void testGetAllSubCategories() {
+    void testGetAllSubCategories() {
         
         List<SubCategory> subCategories = new ArrayList<>();
         subCategories.add(new SubCategory(1, null, "SubCategory 1", "Description 1"));
@@ -58,7 +58,7 @@ public class SubCategoryControllerTests {
     }
 
     @Test
-    public void testGetSubCategoryById() {
+    void testGetSubCategoryById() {
         int subCategoryId = 1;
         SubCategory subCategory = new SubCategory(subCategoryId, null, "Test SubCategory", "Test Description");
 
@@ -71,7 +71,7 @@ public class SubCategoryControllerTests {
     }
 
     @Test
-    public void testUpdateSubCategoryById() {
+    void testUpdateSubCategoryById() {
         int subCategoryId = 1;
         SubCategory updatedSubCategory = new SubCategory(subCategoryId, null, "Updated SubCategory", "Updated Description");
 
@@ -84,7 +84,7 @@ public class SubCategoryControllerTests {
     }
 
     @Test
-    public void testDeleteSubCategoryById() {
+    void testDeleteSubCategoryById() {
         int subCategoryId = 1;
 
         when(subCategoryService.deleteSubCategory(subCategoryId)).thenReturn(true);

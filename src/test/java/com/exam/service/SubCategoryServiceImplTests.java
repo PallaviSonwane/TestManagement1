@@ -1,15 +1,15 @@
 package com.exam.service;
 
-import com.exam.models.Category;
-import com.exam.models.SubCategory;
-import com.exam.repository.CategoryRepository;
-import com.exam.repository.SubCategoryRepository;
-import com.exam.services.imlclass.SubCategoryServiceImp;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.testmanagement.models.Category;
+import com.testmanagement.models.SubCategory;
+import com.testmanagement.repository.CategoryRepository;
+import com.testmanagement.repository.SubCategoryRepository;
+import com.testmanagement.services.impl.SubCategoryServiceImp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class SubCategoryServiceImplTests {
+class SubCategoryServiceImplTests {
 
     @Mock
     private SubCategoryRepository subCategoryRepository;
@@ -32,7 +32,7 @@ public class SubCategoryServiceImplTests {
     private SubCategoryServiceImp subCategoryService;
 
     @Test
-    public void testCreateSubCategory() {
+    void testCreateSubCategory() {
        
         Category category = new Category(1, "Test Category", "Test Category Description");
         SubCategory subCategory = new SubCategory(1, category, "Test SubCategory", "Test SubCategory Description");
@@ -47,7 +47,7 @@ public class SubCategoryServiceImplTests {
     }
 
     @Test
-    public void testGetAllSubCategories() {
+    void testGetAllSubCategories() {
         
         List<SubCategory> subCategories = new ArrayList<>();
         subCategories.add(new SubCategory(1, new Category(), "SubCategory 1", "Description 1"));
@@ -61,7 +61,7 @@ public class SubCategoryServiceImplTests {
     }
 
     @Test
-    public void testGetSubCategory() {
+    void testGetSubCategory() {
         
         int subCategoryId = 1;
         SubCategory subCategory = new SubCategory(subCategoryId, new Category(), "Test SubCategory", "Test Description");
@@ -75,7 +75,7 @@ public class SubCategoryServiceImplTests {
     }
 
     @Test
-    public void testDeleteSubCategory() {
+    void testDeleteSubCategory() {
       
         int subCategoryId = 1;
 
@@ -87,7 +87,7 @@ public class SubCategoryServiceImplTests {
     }
 
     @Test
-    public void testUpdateSubCategory() {
+    void testUpdateSubCategory() {
      
         int subCategoryId = 1;
         SubCategory updatedSubCategory = new SubCategory(subCategoryId, new Category(), "Updated SubCategory", "Updated Description");
@@ -102,7 +102,7 @@ public class SubCategoryServiceImplTests {
     }
 
     @Test
-    public void testGetSubCategoryData() {
+    void testGetSubCategoryData() {
         
         String subCategoryName = "Test SubCategory";
         SubCategory subCategory = new SubCategory(1, null , subCategoryName, "Description");

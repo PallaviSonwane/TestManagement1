@@ -1,12 +1,13 @@
 package com.exam.service;
 
-import com.exam.models.Category;
-import com.exam.repository.CategoryRepository;
-import com.exam.services.imlclass.CategoryServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.testmanagement.models.Category;
+import com.testmanagement.repository.CategoryRepository;
+import com.testmanagement.services.impl.CategoryServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class CategoryServiceImplTests {
+ class CategoryServiceImplTests {
 
     @Mock
     private CategoryRepository categoryRepository;
@@ -26,7 +27,7 @@ public class CategoryServiceImplTests {
     private CategoryServiceImpl categoryService;
 
     @Test
-    public void testCreateCategory() {
+    void testCreateCategory() {
        
         Category category = new Category(1, "Test Category", "Test Description");
 
@@ -41,7 +42,7 @@ public class CategoryServiceImplTests {
     }
 
     @Test
-    public void testGetAllCategoryInfo() {
+    void testGetAllCategoryInfo() {
         
         List<Category> categories = new ArrayList<>();
         categories.add(new Category(1, "Category 1", "Description 1"));
@@ -49,27 +50,27 @@ public class CategoryServiceImplTests {
 
         when(categoryRepository.findAll()).thenReturn(categories);
 
-        List<Category> retrievedCategories = categoryService.getAllCategoryInfo();
+        List<Category> retrievedCategories = categoryService.getAllCategories();
 
         assertEquals(categories.size(), retrievedCategories.size());
     }
 
     @Test
-    public void testGetCategoryInfo() {
+    void testGetCategoryInfo() {
         
         int categoryId = 1;
         Category category = new Category(categoryId, "Test Category", "Test Description");
 
         when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
 
-        Optional<Category> retrievedCategory = categoryService.getCategoryInfo(categoryId);
+        Optional<Category> retrievedCategory = categoryService.getCategoryById(categoryId);
 
         assertTrue(retrievedCategory.isPresent());
         assertEquals(categoryId, retrievedCategory.get().getCategoryId());
     }
 
     @Test
-    public void testDeleteCategoryByID() {
+    void testDeleteCategoryByID() {
        
         int categoryId = 1;
 
@@ -81,7 +82,7 @@ public class CategoryServiceImplTests {
     }
 
     @Test
-    public void testUpdateCategoryById() {
+    void testUpdateCategoryById() {
         
         int categoryId = 1;
         Category updatedCategory = new Category(categoryId, "Updated Category", "Updated Description");
@@ -96,7 +97,7 @@ public class CategoryServiceImplTests {
     }
 
     @Test
-    public void testGetCategory() {
+    void testGetCategory() {
         
         String categoryName = "Test Category";
         List<Category> categories = new ArrayList<>();

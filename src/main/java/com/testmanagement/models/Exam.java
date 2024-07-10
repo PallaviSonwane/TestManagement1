@@ -1,4 +1,4 @@
-package com.exam.models;
+package com.testmanagement.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +22,7 @@ public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="question_id")
-    private int question_id;
+    private int questionId;
 
     @ManyToOne
     @JoinColumn(name = "sub_categoryid")

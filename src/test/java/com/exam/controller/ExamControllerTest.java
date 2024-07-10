@@ -16,12 +16,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.exam.controllers.ExamController;
-import com.exam.models.Exam;
-import com.exam.services.ExamService;
+import com.testmanagement.controllers.ExamController;
+import com.testmanagement.models.Exam;
+import com.testmanagement.services.ExamService;
 
 @SpringBootTest
-public class ExamControllerTest {
+class ExamControllerTest {
 
     @Mock
     private ExamService examService;
@@ -30,7 +30,7 @@ public class ExamControllerTest {
     private ExamController examController;
 
     @Test
-    public void testCreateQuestion(){
+    void testCreateQuestion(){
         Exam examModel=new Exam(1,null,"Question 1","op 1","op 2","op 3","op 4","ans 1","3","-2");
 
         when(examService.addQuestion(examModel)).thenReturn(examModel);
@@ -41,7 +41,7 @@ public class ExamControllerTest {
     }
 
     @Test
-    public void testGetAllQuestion(){
+    void testGetAllQuestion(){
         List<Exam> questionList=new ArrayList<>();
         questionList.add(new Exam(1,null,"Question 1","op 1","op 2","op 3","op 4","ans 1","3","-1"));
         questionList.add(new Exam(2,null,"Question 2","op 1","op 2","op 3","op 4","ans 2","2","-2"));
@@ -54,7 +54,7 @@ public class ExamControllerTest {
     }
 
     @Test
-    public void testGetQuestionById(){
+    void testGetQuestionById(){
         int questionId=1;
         Exam qExam=new Exam(1,null,"Question 1","op 1","op 2","op 3","op 4","ans 1","3","-1");
 
@@ -62,11 +62,11 @@ public class ExamControllerTest {
         ResponseEntity<Exam> response=examController.getQuestionById(questionId);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(questionId, response.getBody().getQuestion_id());
+        assertEquals(questionId, response.getBody().getQuestionId());
     }
 
     @Test
-    public void testDeleteQuestionById() {
+    void testDeleteQuestionById() {
        
         int questionId = 1;
 
@@ -79,7 +79,7 @@ public class ExamControllerTest {
     }
 
       @Test
-    public void testUpdateQuestionById() {
+    void testUpdateQuestionById() {
         
         int questionId = 1;
         Exam updatedExam = new Exam(questionId, null, "What is Java?", "A programming language", "A type of coffee", "A framework", "Abc","ans", "3", "-2");

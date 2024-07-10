@@ -1,29 +1,28 @@
 package com.exam.service;
 
-import com.exam.models.Exam;
-import com.exam.models.SubCategory;
-import com.exam.repository.ExamRepository;
-import com.exam.repository.SubCategoryRepository;
-import com.exam.services.CategoryService;
-import com.exam.services.SubCategoryService;
-import com.exam.services.imlclass.ExamServiceImp;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
+import com.testmanagement.models.Exam;
+import com.testmanagement.models.SubCategory;
+import com.testmanagement.repository.ExamRepository;
+import com.testmanagement.repository.SubCategoryRepository;
+import com.testmanagement.services.CategoryService;
+import com.testmanagement.services.SubCategoryService;
+import com.testmanagement.services.impl.ExamServiceImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class ExamServiceImpTests {
+class ExamServiceImpTests {
 
     @Mock
     private ExamRepository examRepository;
@@ -38,17 +37,20 @@ public class ExamServiceImpTests {
     private SubCategoryRepository subCategoryRepository;
 
     @InjectMocks
-    private ExamServiceImp examService;
-    
+    private ExamServiceImpl examService;
+
     @Test
-    public void testAddQuestion() {
-       
+    void testAddQuestion() {
+
         SubCategory subCategory = new SubCategory(1, null, "SubCategory Name", "SubCategory Description");
-        Exam exam = new Exam(1, subCategory, "Question Text", "Option 1", "Option 2", "Option 3", "Option 4", "Answer", "1", "0");
+        Exam exam = new Exam(1, subCategory, "Question Text", "Option 1", "Option 2", "Option 3", "Option 4", "Answer",
+                "1", "0");
 
         when(examRepository.existsByQuestion(exam.getQuestion())).thenReturn(false);
+
         when(subCategoryRepository.existsById(exam.getSubCategory().getSubCategoryID())).thenReturn(true);
-        when(examRepository.save(any(Exam.class))).thenReturn(exam);
+
+        when(examRepository.save(exam)).thenReturn(exam);
 
         Exam savedExam = examService.addQuestion(exam);
 
@@ -58,16 +60,17 @@ public class ExamServiceImpTests {
 
         verify(examRepository, times(1)).existsByQuestion(exam.getQuestion());
         verify(subCategoryRepository, times(1)).existsById(exam.getSubCategory().getSubCategoryID());
-        verify(examRepository, times(1)).save(any(Exam.class));
+        verify(examRepository, times(1)).save(exam);
     }
 
-
     @Test
-    public void testViewAllQuestions() {
-        
+    void testViewAllQuestions() {
+
         List<Exam> examList = new ArrayList<>();
-        examList.add(new Exam(1, null, "Question 1", "Option 1", "Option 2", "Option 3", "Option 4", "Answer", "1", "0"));
-        examList.add(new Exam(2, null, "Question 2", "Option 1", "Option 2", "Option 3", "Option 4", "Answer", "1", "0"));
+        examList.add(
+                new Exam(1, null, "Question 1", "Option 1", "Option 2", "Option 3", "Option 4", "Answer", "1", "0"));
+        examList.add(
+                new Exam(2, null, "Question 2", "Option 1", "Option 2", "Option 3", "Option 4", "Answer", "1", "0"));
 
         when(examRepository.findAll()).thenReturn(examList);
 
@@ -81,10 +84,11 @@ public class ExamServiceImpTests {
     }
 
     @Test
-    public void testViewQuestionById() {
-        
+    void testViewQuestionById() {
+
         int questionId = 1;
-        Exam exam = new Exam(questionId, null, "Question Text", "Option 1", "Option 2", "Option 3", "Option 4", "Answer", "1", "0");
+        Exam exam = new Exam(questionId, null, "Question Text", "Option 1", "Option 2", "Option 3", "Option 4",
+                "Answer", "1", "0");
 
         when(examRepository.existsById(questionId)).thenReturn(true);
         when(examRepository.findById(questionId)).thenReturn(Optional.of(exam));
@@ -99,8 +103,8 @@ public class ExamServiceImpTests {
     }
 
     @Test
-    public void testDeleteQuestionById() {
-        
+    void testDeleteQuestionById() {
+
         int questionId = 1;
 
         when(examRepository.existsById(questionId)).thenReturn(true);
@@ -112,13 +116,13 @@ public class ExamServiceImpTests {
         assertEquals(ResponseEntity.ok().build(), result);
     }
 
-
     @Test
-    public void testUpdateQuestion() {
-        
+    void testUpdateQuestion() {
+
         int questionId = 1;
         SubCategory subCategory = new SubCategory(1, null, "SubCategory Name", "SubCategory Description");
-        Exam updatedExam = new Exam(questionId, subCategory, "Updated Question", "Updated Option 1", "Updated Option 2", "Updated Option 3", "Updated Option 4", "Updated Answer", "2", "0");
+        Exam updatedExam = new Exam(questionId, subCategory, "Updated Question", "Updated Option 1", "Updated Option 2",
+                "Updated Option 3", "Updated Option 4", "Updated Answer", "2", "0");
 
         when(examRepository.existsById(questionId)).thenReturn(true);
         when(subCategoryRepository.existsById(updatedExam.getSubCategory().getSubCategoryID())).thenReturn(true);
@@ -135,4 +139,3 @@ public class ExamServiceImpTests {
     }
 
 }
-
