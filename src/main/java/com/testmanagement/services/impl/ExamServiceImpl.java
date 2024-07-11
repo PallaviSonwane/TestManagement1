@@ -6,7 +6,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.testmanagement.exceptions.ExceptionManager;
@@ -17,7 +16,6 @@ import com.testmanagement.repository.SubCategoryRepository;
 import com.testmanagement.services.CategoryService;
 import com.testmanagement.services.ExamService;
 import com.testmanagement.services.SubCategoryService;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -75,7 +73,7 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public ResponseEntity<String> deleteQuestionById(Integer questionId) {
+    public void deleteQuestionById(Integer questionId) {
         if (examRepository.existsById(questionId)) {
             examRepository.deleteById(questionId);
             log.info("Question deleted successfully: {}", questionId);

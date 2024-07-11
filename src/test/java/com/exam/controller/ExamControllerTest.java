@@ -1,26 +1,23 @@
 package com.exam.controller;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
-
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.multipart.MultipartFile;
 import com.testmanagement.controllers.ExamController;
 import com.testmanagement.models.Exam;
+import com.testmanagement.response.SuccessResponse;
 import com.testmanagement.services.ExamService;
 
-@SpringBootTest
 class ExamControllerTest {
 
     @Mock
@@ -29,66 +26,98 @@ class ExamControllerTest {
     @InjectMocks
     private ExamController examController;
 
-    @Test
-    void testCreateQuestion(){
-        Exam examModel=new Exam(1,null,"Question 1","op 1","op 2","op 3","op 4","ans 1","3","-2");
-
-        when(examService.addQuestion(examModel)).thenReturn(examModel);
-        ResponseEntity<String> added=examController.addQuestion(examModel);
-
-        assertEquals(HttpStatus.CREATED, added.getStatusCode());
-        assertEquals("Question added successfully", added.getBody());   
+    @BeforeEach
+    void setUp() {
+        examService=mock(ExamService.class);
+        examController=new ExamController(examService);
     }
 
     @Test
-    void testGetAllQuestion(){
-        List<Exam> questionList=new ArrayList<>();
-        questionList.add(new Exam(1,null,"Question 1","op 1","op 2","op 3","op 4","ans 1","3","-1"));
-        questionList.add(new Exam(2,null,"Question 2","op 1","op 2","op 3","op 4","ans 2","2","-2"));
-        
-        when(examService.viewAllQuestions()).thenReturn(questionList);
-        ResponseEntity<List<Exam>> questions=examController.getAllQuestions();
+    void testCreateMultipleChoiceQuestion() {
+        Exam exam =new Exam(1, null, "Question", "op1", "op2", "op3", "op4", "ans", "3", "-1");
+        when(examService.createMultipleChoiceQuestion(exam)).thenReturn(exam);
+        ResponseEntity<SuccessResponse> responseEntity = examController.createMultipleChoiceQuestion(exam);
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+        assertEquals("New Question Saved", responseEntity.getBody().getMessage());
+        assertEquals(exam, responseEntity.getBody().getModuleData());
 
-        assertEquals(HttpStatus.OK, questions.getStatusCode());
-        assertEquals(questionList, questions.getBody());
+        verify(examService, times(1)).createMultipleChoiceQuestion(any(Exam.class));
     }
 
     @Test
-    void testGetQuestionById(){
-        int questionId=1;
-        Exam qExam=new Exam(1,null,"Question 1","op 1","op 2","op 3","op 4","ans 1","3","-1");
+    void testGetAllQuestions() {
+        List<Exam> examList = new ArrayList<>();
+        examList.add(new Exam(1, null, "Question", "op1", "op2", "op3", "op4", "ans", "3", "-1"));
+        when(examService.viewAllQuestions()).thenReturn(examList);
+        ResponseEntity<SuccessResponse> responseEntity = examController.getAllQuestions();
 
-        when(examService.viewQuestionById(questionId)).thenReturn(Optional.of(qExam));
-        ResponseEntity<Exam> response=examController.getQuestionById(questionId);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals("All Data Retrieved", responseEntity.getBody().getMessage());
+        assertEquals(examList, responseEntity.getBody().getModuleData());
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(questionId, response.getBody().getQuestionId());
+        verify(examService, times(1)).viewAllQuestions();
+    }
+
+    @Test
+    void testGetQuestionById() {
+        int questionId = 1;
+        Exam exam = new Exam(1, null, "Question", "op1", "op2", "op3", "op4", "ans", "3", "-1");
+        Optional<Exam> optionalExam = Optional.of(exam);
+        when(examService.viewQuestionById(questionId)).thenReturn(optionalExam);
+        ResponseEntity<SuccessResponse> responseEntity = examController.getQuestionById(questionId);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals("Question Data get by id", responseEntity.getBody().getMessage());
+
+        verify(examService, times(1)).viewQuestionById(questionId);
+    }
+
+    @Test
+    void testGetQuestionById_NotFound() {
+        int questionId = 1;
+        when(examService.viewQuestionById(questionId)).thenReturn(Optional.empty());
+        ResponseEntity<SuccessResponse> responseEntity = examController.getQuestionById(questionId);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals("Question Data get by id", responseEntity.getBody().getMessage());
+
+        verify(examService, times(1)).viewQuestionById(questionId);
     }
 
     @Test
     void testDeleteQuestionById() {
-       
         int questionId = 1;
+        ResponseEntity<SuccessResponse> responseEntity = examController.deleteQuestionById(questionId);
 
-        when(examService.deleteQuestionById(questionId)).thenReturn(ResponseEntity.ok().build());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals("Question Data Deleted", responseEntity.getBody().getMessage());
+        assertNull(responseEntity.getBody().getModuleData());
 
-        ResponseEntity<String> response = examController.deleteQuestionById(questionId);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("Question deleted successfully", response.getBody());
+        verify(examService, times(1)).deleteQuestionById(questionId);
     }
 
-      @Test
+    @Test
     void testUpdateQuestionById() {
-        
         int questionId = 1;
-        Exam updatedExam = new Exam(questionId, null, "What is Java?", "A programming language", "A type of coffee", "A framework", "Abc","ans", "3", "-2");
+        Exam exam = new Exam(1, null, "Question", "op1", "op2", "op3", "op4", "ans", "3", "-1");
+        when(examService.updateQuestion(eq(questionId), any(Exam.class))).thenReturn(exam);
+        ResponseEntity<SuccessResponse> responseEntity = examController.updateQuestionById(questionId, exam);
 
-        when(examService.updateQuestion(eq(questionId), any(Exam.class))).thenReturn(updatedExam);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals("Question Data Updated", responseEntity.getBody().getMessage());
+        assertEquals(exam, responseEntity.getBody().getModuleData());
 
-        ResponseEntity<String> response = examController.updateQuestionById(questionId, updatedExam);
+        verify(examService, times(1)).updateQuestion(eq(questionId), any(Exam.class));
+    }
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("Question updated successfully", response.getBody());
+    @Test
+    void testUploadData() throws IOException {
+        MultipartFile mockFile = mock(MultipartFile.class);
+        ResponseEntity<SuccessResponse> responseEntity = examController.uploadData(mockFile);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals("Question Data Uploaded", responseEntity.getBody().getMessage());
+
+        verify(examService, times(1)).processExcel(mockFile);
     }
 }

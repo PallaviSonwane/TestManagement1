@@ -1,14 +1,9 @@
 package com.testmanagement.services;
 
-
 import java.io.IOException;
 import java.util.*;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.testmanagement.models.Exam;
-
 
 public interface ExamService {
     
@@ -20,7 +15,7 @@ public interface ExamService {
 
     public Optional<Exam> viewQuestionById(Integer questionId);
 
-    public ResponseEntity<String> deleteQuestionById(Integer questionId);
+    public void deleteQuestionById(Integer questionId);
 
     public Exam updateQuestion(Integer questionId, Exam exam);
 

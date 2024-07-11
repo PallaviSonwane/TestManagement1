@@ -58,17 +58,14 @@ public class SubCategoryServiceImp implements SubCategoryService {
     }
 
     @Override
-    public boolean deleteSubCategory(int subCategoryID) {
+    public void deleteSubCategory(int subCategoryID) {
 
         if (subCategoryRepository.existsById(subCategoryID)) {
             subCategoryRepository.deleteById(subCategoryID);
             log.info("SubCategory with ID '{}' deleted from database", subCategoryID);
-            return true;
-        } else {
+        }
             log.error("SubCategory with ID '{}' not found in database", subCategoryID);
             throw new ExceptionManager("Id not found in databse");
-        }
-
     }
 
     @Override

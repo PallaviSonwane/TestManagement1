@@ -8,6 +8,6 @@ class TestManagementApplicationTests {
 
 	@Test
 	void contextLoads() {
-	}
+ }
 
 }
